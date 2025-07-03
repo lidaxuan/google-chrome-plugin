@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "啊玄的脚本",
+  "description": "一个纯 JS 实现的网页布局分析工具，支持盒模型可视化、网格线、快捷键调试等功能。",
+  "version": "1.0.0",
+  "permissions": ["scripting", "activeTab"],
+  "icons": {
+    "48": "icon.png"
+  },
+  "action": {
+    "default_title": "启动 啊玄的脚本",
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  }
+}
