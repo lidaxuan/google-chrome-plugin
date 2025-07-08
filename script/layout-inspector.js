@@ -507,28 +507,29 @@
         collapsed = !collapsed;
         if (collapsed) {
             // 折叠时隐藏除标题栏和折叠按钮外所有内容
-            Array.from(panel.children).forEach(child => {
-                if (child !== headerBox) {
-                    child.style.display = 'none';
-                }
-            });
+            // Array.from(panel.children).forEach(child => {
+            //     if (child !== headerBox) {
+            //         // child.style.display = 'none';
+            //     }
+            // });
             toggleCollapseBtn.textContent = '展开 ▼';
-            panel.style.height = '40px';
+            panel.style.height = '51px';
+            panel.style.overflow = 'hidden';
             // panel.style.width = '300px';
             // 防止鼠标移动触发元素切换，锁定当前元素
             locked = true;
             lockBtn.textContent = '🔓 解除锁定';
         } else {
             // 展开恢复显示
-            Array.from(panel.children).forEach(child => {
-                if (child == headerBox) {
-                    child.style.display = 'flex';
-                } else {
-                    child.style.display = '';
-                }
-            });
+            // Array.from(panel.children).forEach(child => {
+            //     if (child == headerBox) {
+            //         child.style.display = 'flex';
+            //     } else {
+            //         child.style.display = '';
+            //     }
+            // });
             toggleCollapseBtn.textContent = '收起 ▲';
-            panel.style.height = '';
+            panel.style.height = 'auto';
             // panel.style.width = '380px';
             locked = false;
             lockBtn.textContent = '🔒 锁定元素';
