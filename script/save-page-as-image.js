@@ -18,6 +18,31 @@
     if (typeof html2canvas !== 'undefined') {
         r();
     } else {
-        l('/utils/html2canvas.min.js', r);
+        l('//cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js', r);
     }
+
+    // chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
+    //     chrome.scripting.executeScript({
+    //         target: { tabId: tab.id },
+    //         files: ['/utils/html2canvas.min.js']
+    //     }, () => {
+    //         chrome.scripting.executeScript({
+    //             target: { tabId: tab.id },
+    //             func: () => {
+    //                 function r() {
+    //                     html2canvas(document.body, { useCORS: true, backgroundColor: null, scale: 2 }).then(c => {
+    //                         const a = document.createElement('a');
+    //                         a.download = 'screenshot.png';
+    //                         a.href = c.toDataURL('image/png');
+    //                         a.click();
+    //                     });
+    //                 }
+
+    //                 if (typeof html2canvas !== 'undefined') {
+    //                     r();
+    //                 }
+    //             }
+    //         });
+    //     });
+    // });
 })();

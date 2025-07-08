@@ -540,6 +540,7 @@
         const key = e.key.toLowerCase();
 
         if (key === 'escape') {
+            hintBox.remove();
             overlay.remove();
             panel.remove();
             gridLines.remove();
