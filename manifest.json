@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "啊玄的脚本",
-  "description": "啊玄写的脚本，子啊开发中快速调试等功能。",
+  "description": "啊玄写的脚本，在开发中快速调试等功能。",
   "version": "1.0.0",
   "permissions": ["scripting", "activeTab"],
   "icons": {
