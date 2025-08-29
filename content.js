@@ -23,7 +23,7 @@
             this.y = y;
             this.vx = (Math.random() - 0.5) * 2;
             this.vy = (Math.random() - 0.5) * 2;
-            this.life = 60;
+            this.life = 40;
             this.size = Math.random() * 6 + 2;
             this.color = `hsl(${Math.random() * 360},100%,60%)`;
             this.shape = ['circle', 'square', 'star'][Math.floor(Math.random() * 3)];
@@ -77,9 +77,10 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
+    const offsetY = 10; // 像素，向下偏移
     window.addEventListener('mousemove', e => {
         for (let i = 0; i < 5; i++) {
-            particles.push(new Particle(e.clientX, e.clientY));
+            particles.push(new Particle(e.clientX, e.clientY+offsetY));
         }
     });
 
