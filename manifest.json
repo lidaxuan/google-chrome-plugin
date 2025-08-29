@@ -3,7 +3,10 @@
   "name": "啊玄的脚本",
   "description": "啊玄写的脚本，在开发中快速调试等功能。",
   "version": "1.0.0",
-  "permissions": ["scripting", "activeTab"],
+  "permissions": [
+    "scripting",
+    "activeTab"
+  ],
   "icons": {
     "48": "icon.png"
   },
@@ -11,5 +14,16 @@
     "default_title": "啊玄的脚本",
     "default_icon": "icon.png",
     "default_popup": "popup.html"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ]
 }
