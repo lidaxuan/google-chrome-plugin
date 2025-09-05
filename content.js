@@ -1,9 +1,5 @@
 (function () {
-    console.log(111111);
-
     if (window.__MouseTrailInjected) return;
-    console.log(222222);
-
     window.__MouseTrailInjected = true;
 
     const canvas = document.createElement('canvas');
@@ -21,12 +17,12 @@
         constructor(x, y) {
             this.x = x;
             this.y = y;
-            this.vx = (Math.random() - 0.5) * 2;
-            this.vy = (Math.random() - 0.5) * 2;
-            this.life = 40;
-            this.size = Math.random() * 6 + 2;
+            this.vx = (Math.random() - 0.5) * 1.5; // 降低速度
+            this.vy = (Math.random() - 0.5) * 1.5;
+            this.life = 25; // 缩短生命周期
+            this.size = Math.random() * 4 + 1.5; // 减小粒子尺寸
             this.color = `hsl(${Math.random() * 360},100%,60%)`;
-            this.shape = ['circle', 'square', 'star'][Math.floor(Math.random() * 3)];
+            this.shape = ['circle', 'square'][Math.floor(Math.random() * 2)];
         }
         update() {
             this.x += this.vx;
@@ -34,41 +30,22 @@
             this.life--;
         }
         draw(ctx) {
-            ctx.globalAlpha = this.life / 60;
-
-            // 三种形状随机选择
-            const shape = this.shape || ['square', 'star', 'line'][Math.floor(Math.random() * 3)];
-
+            ctx.globalAlpha = this.life / 25;
             ctx.fillStyle = this.color;
-            ctx.strokeStyle = this.color;
-
-            switch (shape) {
-                case 'square': // 方块
-                    ctx.fillRect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
-                    break;
-                case 'star': // 五角星
-                    ctx.beginPath();
-                    for (let i = 0; i < 5; i++) {
-                        ctx.lineTo(this.x + this.size * Math.cos((18 + i * 72) * Math.PI / 180),
-                            this.y - this.size * Math.sin((18 + i * 72) * Math.PI / 180));
-                    }
-                    ctx.closePath();
-                    ctx.fill();
-                    break;
-                case 'line': // 光束
-                    ctx.beginPath();
-                    ctx.moveTo(this.x - this.vx * 5, this.y - this.vy * 5);
-                    ctx.lineTo(this.x, this.y);
-                    ctx.stroke();
-                    break;
+            if (this.shape === 'square') {
+                ctx.fillRect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
+            } else {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
+                ctx.fill();
             }
-
             ctx.globalAlpha = 1;
         }
-
     }
 
     const particles = [];
+    const MAX_PARTICLES = 200; // 限制最大粒子数
+    let lastTime = 0;
 
     function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -77,10 +54,15 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    const offsetY = 10; // 像素，向下偏移
     window.addEventListener('mousemove', e => {
-        for (let i = 0; i < 5; i++) {
-            particles.push(new Particle(e.clientX, e.clientY+offsetY));
+        const now = Date.now();
+        if (now - lastTime < 30) return; // 节流，每 30ms 生成一次
+        lastTime = now;
+
+        for (let i = 0; i < 5; i++) { // 一次生成少量
+            if (particles.length < MAX_PARTICLES) {
+                particles.push(new Particle(e.clientX, e.clientY + 8));
+            }
         }
     });
 
